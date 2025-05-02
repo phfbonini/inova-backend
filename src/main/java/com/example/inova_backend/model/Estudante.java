@@ -1,13 +1,12 @@
 package com.example.inova_backend.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,13 +16,13 @@ public class Estudante {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "universidade_id")
-    private Universidade universidade;
-
     @OneToOne
     @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
+
+    @ManyToOne
+    @JoinColumn(name = "universidade_id")
+    private Universidade universidade;
 
     private String documentoMatricula;
 
@@ -42,5 +41,12 @@ public class Estudante {
     @PreUpdate
     public void preUpdate() {
         this.dataAlteracao = LocalDateTime.now();
+    }
+
+    public Estudante(Pessoa pessoa, Universidade universidade, String documentoMatricula, Curso curso) {
+        this.pessoa = pessoa;
+        this.universidade = universidade;
+        this.documentoMatricula = documentoMatricula;
+        this.curso = curso;
     }
 }

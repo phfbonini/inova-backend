@@ -1,13 +1,14 @@
 package com.example.inova_backend.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,6 +31,10 @@ public class Setor {
     @PreUpdate
     public void preUpdate() {
         this.dataAlteracao = LocalDateTime.now();
+    }
+
+    public Setor(String nome) {
+        this.nome = nome;
     }
 }
 

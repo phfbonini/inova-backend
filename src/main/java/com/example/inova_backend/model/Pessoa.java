@@ -2,13 +2,12 @@ package com.example.inova_backend.model;
 
 import com.example.inova_backend.enums.TipoPessoa;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -37,6 +36,14 @@ public class Pessoa {
     @PreUpdate
     public void preUpdate() {
         this.dataAlteracao = LocalDateTime.now();
+    }
+
+    public Pessoa(String nome, String documentoNumero, TipoPessoa tipoPessoa, String email, String telefone) {
+        this.nome = nome;
+        this.documentoNumero = documentoNumero;
+        this.tipoPessoa = tipoPessoa;
+        this.email = email;
+        this.telefone = telefone;
     }
 }
 
