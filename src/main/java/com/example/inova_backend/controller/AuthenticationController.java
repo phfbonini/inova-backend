@@ -1,6 +1,8 @@
 package com.example.inova_backend.controller;
 
+import com.example.inova_backend.config.TokenService;
 import com.example.inova_backend.dto.AuthenticationDTO;
+import com.example.inova_backend.dto.LoginResponseDTO;
 import com.example.inova_backend.dto.RegisterDTO;
 import com.example.inova_backend.model.Usuario;
 import com.example.inova_backend.repository.UsuarioRepository;
@@ -25,13 +27,15 @@ public class AuthenticationController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
-
-
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((Usuario) auth.getPrincipal());
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
