@@ -18,6 +18,7 @@ public class Setor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NonNull
     private String nome;
 
     private LocalDateTime dataInclusao;
@@ -31,10 +32,6 @@ public class Setor {
     @PreUpdate
     public void preUpdate() {
         this.dataAlteracao = LocalDateTime.now();
-    }
-
-    public Setor(String nome) {
-        this.nome = nome;
     }
 }
 
