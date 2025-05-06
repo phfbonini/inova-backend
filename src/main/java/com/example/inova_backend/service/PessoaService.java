@@ -1,0 +1,22 @@
+package com.example.inova_backend.service;
+
+import com.example.inova_backend.dto.PessoaDTO;
+import com.example.inova_backend.repository.PessoaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class PessoaService {
+    @Autowired
+    private PessoaRepository pessoaRepository;
+
+    public List<PessoaDTO> getPessoas() {
+        return pessoaRepository.findAll()
+                .stream()
+                .map(PessoaDTO::new)
+                .toList();
+    }
+
+}
