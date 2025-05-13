@@ -1,5 +1,6 @@
 package com.example.inova_backend.dto;
 
+import com.example.inova_backend.enums.TipoPessoa;
 import com.example.inova_backend.model.Pessoa;
 import lombok.Data;
 
@@ -26,5 +27,9 @@ public class PessoaDTO {
         this.telefone = pessoa.getTelefone();
         this.dataInclusao = pessoa.getDataInclusao();
         this.dataAlteracao = pessoa.getDataAlteracao();
+    }
+
+    public Pessoa toEntity() {
+        return new Pessoa(this.nome, this.documentoNumero, TipoPessoa.valueOf(this.tipoPessoa), this.email, this.telefone);
     }
 }
