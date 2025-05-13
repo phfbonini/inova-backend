@@ -1,4 +1,4 @@
-package com.example.inova_backend.dto;
+package com.example.inova_backend.dto.auth;
 
 import com.example.inova_backend.enums.Role;
 

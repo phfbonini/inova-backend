@@ -1,9 +1,9 @@
 package com.example.inova_backend.controller;
 
 import com.example.inova_backend.config.TokenService;
-import com.example.inova_backend.dto.AuthenticationDTO;
-import com.example.inova_backend.dto.LoginResponseDTO;
-import com.example.inova_backend.dto.RegisterDTO;
+import com.example.inova_backend.dto.auth.AuthenticationDTO;
+import com.example.inova_backend.dto.auth.LoginResponseDTO;
+import com.example.inova_backend.dto.auth.RegisterDTO;
 import com.example.inova_backend.model.Usuario;
 import com.example.inova_backend.repository.UsuarioRepository;
 import jakarta.validation.Valid;
