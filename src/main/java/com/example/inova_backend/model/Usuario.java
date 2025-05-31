@@ -1,5 +1,6 @@
 package com.example.inova_backend.model;
 
+import com.example.inova_backend.dto.UsuarioDTO;
 import com.example.inova_backend.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,8 @@ public class Usuario implements UserDetails {
 
     @ManyToOne
     private Pessoa pessoa;
+
+    private Boolean ativo = false;
 
     private LocalDateTime dataInclusao;
     private LocalDateTime dataAlteracao;
@@ -71,6 +74,18 @@ public class Usuario implements UserDetails {
     }
 
     public  Usuario(){}
+
+    public UsuarioDTO toDTO() {
+        return new UsuarioDTO(
+                this.id,
+                this.email,
+                this.role,
+                this.pessoa != null ? this.pessoa.getId() : null,
+                this.ativo,
+                this.dataInclusao,
+                this.dataAlteracao
+        );
+    }
 
 }
 
