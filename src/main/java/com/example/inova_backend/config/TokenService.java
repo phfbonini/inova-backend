@@ -22,6 +22,7 @@ public class TokenService {
             return JWT.create()
                     .withIssuer("inova-api")
                     .withSubject(usuario.getUsername())
+                    .withClaim("role", usuario.getRole().name())
                     .withExpiresAt(getExpirationTime())
                     .sign(algorithm);
         } catch (JWTCreationException exception){
