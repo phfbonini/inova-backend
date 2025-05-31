@@ -1,0 +1,27 @@
+package com.example.inova_backend.service;
+
+import com.example.inova_backend.model.Universidade;
+import com.example.inova_backend.repository.UniversidadeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class UniversidadeService {
+
+    private final UniversidadeRepository universidadeRepository;
+
+    @Autowired
+    public UniversidadeService(UniversidadeRepository universidadeRepository) {
+        this.universidadeRepository = universidadeRepository;
+    }
+
+    public Optional<Universidade> getByPessoaId(Long pessoaId) {
+        return universidadeRepository.findByPessoaId(pessoaId);
+    }
+
+    public Optional<Universidade> getById(Long id) {
+        return universidadeRepository.findById(id);
+    }
+}

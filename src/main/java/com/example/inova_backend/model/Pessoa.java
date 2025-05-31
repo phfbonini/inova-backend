@@ -18,12 +18,15 @@ public class Pessoa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
     private String nome;
     private String documentoNumero;
 
     @Enumerated(EnumType.STRING)
     private TipoPessoa tipoPessoa;
-    private String email;
     private String telefone;
 
     private LocalDateTime dataInclusao;
@@ -39,13 +42,13 @@ public class Pessoa implements Serializable {
         this.dataAlteracao = LocalDateTime.now();
     }
 
-    public Pessoa(String nome, String documentoNumero, TipoPessoa tipoPessoa, String email, String telefone) {
+    public Pessoa(String nome, String documentoNumero, TipoPessoa tipoPessoa, String telefone) {
         this.nome = nome;
         this.documentoNumero = documentoNumero;
         this.tipoPessoa = tipoPessoa;
-        this.email = email;
         this.telefone = telefone;
     }
+
 }
 
 

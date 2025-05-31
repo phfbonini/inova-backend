@@ -1,5 +1,6 @@
 package com.example.inova_backend.model;
 
+import com.example.inova_backend.dto.PessoaDTO;
 import com.example.inova_backend.dto.UsuarioDTO;
 import com.example.inova_backend.enums.Role;
 import jakarta.persistence.*;
@@ -33,7 +34,7 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private Role role;
 
-    @ManyToOne
+    @OneToOne
     private Pessoa pessoa;
 
     private Boolean ativo = false;
@@ -80,7 +81,7 @@ public class Usuario implements UserDetails {
                 this.id,
                 this.email,
                 this.role,
-                this.pessoa != null ? this.pessoa.getId() : null,
+                this.pessoa != null ? new PessoaDTO(this.pessoa) : null,
                 this.ativo,
                 this.dataInclusao,
                 this.dataAlteracao

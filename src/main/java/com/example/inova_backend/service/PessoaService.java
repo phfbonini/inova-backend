@@ -33,7 +33,6 @@ public class PessoaService {
         return pessoaRepository.findById(id)
                 .map(pessoa -> {
                     pessoa.setNome(pessoaDTO.getNome());
-                    pessoa.setEmail(pessoaDTO.getEmail());
                     pessoa.setDocumentoNumero(pessoaDTO.getDocumentoNumero());
                     return new PessoaDTO(pessoaRepository.save(pessoa));
                 })
@@ -43,9 +42,5 @@ public class PessoaService {
     public void deletePessoa(Long id) {
         pessoaRepository.deleteById(id);
     }
-
-
-
-
 
 }

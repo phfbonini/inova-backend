@@ -14,7 +14,7 @@ public class UsuarioDTO {
     private Long id;
     private String email;
     private Role role;
-    private Long pessoaId;
+    private PessoaDTO pessoa;
     private Boolean isActive;
     private LocalDateTime dataInclusao;
     private LocalDateTime dataAlteracao;
