@@ -12,20 +12,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UsuarioService {
 
     private final UsuarioRepository userRepository;
+    private static final String USUARIO_NAO_ENCONTRADO = "Usuário não encontrado";
 
     public UsuarioStatusDTO getCurrentUserStatus() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
 
         Usuario user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new RuntimeException(USUARIO_NAO_ENCONTRADO));
 
         return new UsuarioStatusDTO(user.getAtivo());
     }
@@ -40,7 +40,7 @@ public class UsuarioService {
     @Transactional
     public void activateUser(Long userId) {
         Usuario user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new RuntimeException(USUARIO_NAO_ENCONTRADO));
 
         user.setAtivo(true);
         userRepository.save(user);
@@ -49,7 +49,7 @@ public class UsuarioService {
     @Transactional
     public void deactivateUser(Long userId) {
         Usuario user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new RuntimeException(USUARIO_NAO_ENCONTRADO));
 
         if (user.getRole().equals(Role.ADMIN)) {
             throw new RuntimeException("Não é possível desativar usuário administrador");
