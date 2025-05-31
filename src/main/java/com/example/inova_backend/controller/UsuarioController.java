@@ -1,5 +1,6 @@
 package com.example.inova_backend.controller;
 
+import com.example.inova_backend.dto.UsuarioCompletoDTO;
 import com.example.inova_backend.dto.UsuarioStatusDTO;
 import com.example.inova_backend.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,20 @@ public class UsuarioController {
         try {
             UsuarioStatusDTO status = usuarioService.getCurrentUserStatus();
             return ResponseEntity.ok(status);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    //get que recebe a role no parametro
+
+    @GetMapping("/profile")
+    //role de estar autenticado apenas
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<UsuarioCompletoDTO> getUserProfileByRole() {
+        try {
+            UsuarioCompletoDTO userProfile = usuarioService.getUserProfileByRole();
+            return ResponseEntity.ok(userProfile);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
