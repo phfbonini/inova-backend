@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,6 +37,17 @@ public class UsuarioController {
         try {
             UsuarioCompletoDTO userProfile = usuarioService.getUserProfileByRole();
             return ResponseEntity.ok(userProfile);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping("/profile")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<UsuarioCompletoDTO> updateUserProfile(UsuarioCompletoDTO usuarioCompletoDTO) {
+        try {
+            UsuarioCompletoDTO updatedProfile = usuarioService.updateUserProfile(usuarioCompletoDTO);
+            return ResponseEntity.ok(updatedProfile);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
