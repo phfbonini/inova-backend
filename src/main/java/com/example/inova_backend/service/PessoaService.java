@@ -1,6 +1,7 @@
 package com.example.inova_backend.service;
 
 import com.example.inova_backend.dto.PessoaDTO;
+import com.example.inova_backend.model.Pessoa;
 import com.example.inova_backend.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,18 +26,18 @@ public class PessoaService {
                 .orElse(null);
     }
 
-    public PessoaDTO createPessoa(PessoaDTO pessoaDTO) {
-        return new PessoaDTO(pessoaRepository.save(pessoaDTO.toEntity()));
+    public Pessoa getPessoaEntityById(Long id) {
+        return pessoaRepository.findById(id)
+                .orElse(null);
     }
 
-    public PessoaDTO updatePessoa(Long id, PessoaDTO pessoaDTO) {
-        return pessoaRepository.findById(id)
-                .map(pessoa -> {
-                    pessoa.setNome(pessoaDTO.getNome());
-                    pessoa.setDocumentoNumero(pessoaDTO.getDocumentoNumero());
-                    return new PessoaDTO(pessoaRepository.save(pessoa));
-                })
-                .orElse(null);
+
+    public Pessoa createPessoa(PessoaDTO pessoaDTO) {
+        return pessoaRepository.save(pessoaDTO.toEntity());
+    }
+
+    public Pessoa updatePessoa(PessoaDTO pessoaDTO) {
+        return pessoaRepository.save(pessoaDTO.toEntity());
     }
 
     public void deletePessoa(Long id) {

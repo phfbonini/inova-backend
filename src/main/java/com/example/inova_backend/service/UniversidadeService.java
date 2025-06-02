@@ -1,5 +1,7 @@
 package com.example.inova_backend.service;
 
+import com.example.inova_backend.dto.UsuarioCompletoDTO;
+import com.example.inova_backend.model.Pessoa;
 import com.example.inova_backend.model.Universidade;
 import com.example.inova_backend.repository.UniversidadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,4 +26,18 @@ public class UniversidadeService {
     public Optional<Universidade> getById(Long id) {
         return universidadeRepository.findById(id);
     }
+
+    public UsuarioCompletoDTO processarUniversidade(UsuarioCompletoDTO usuarioCompletoDTO, Pessoa pessoa) {
+        Universidade universidade = universidadeRepository
+                .findByPessoaId(pessoa.getId())
+                .orElseGet(Universidade::new);
+
+        universidade.setCodigoMec(usuarioCompletoDTO.getUniversidade().getCodigoMec());
+        universidade.setPessoa(pessoa);
+        universidade = universidadeRepository.save(universidade);
+        usuarioCompletoDTO.getUniversidade().setId(universidade.getId());
+
+        return usuarioCompletoDTO;
+    }
+
 }
