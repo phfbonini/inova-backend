@@ -24,7 +24,7 @@ public class Empresa {
 
     @ManyToOne
     @JoinColumn(name = "setor_id")
-    private Setor setor;
+    private Long setor;
 
     private LocalDateTime dataInclusao;
     private LocalDateTime dataAlteracao;
@@ -37,12 +37,6 @@ public class Empresa {
     @PreUpdate
     public void preUpdate() {
         this.dataAlteracao = LocalDateTime.now();
-    }
-
-    public Empresa(Pessoa pessoa, String nomeFantasia, Setor setor) {
-        this.pessoa = pessoa;
-        this.nomeFantasia = nomeFantasia;
-        this.setor = setor;
     }
 }
 
