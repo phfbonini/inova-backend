@@ -6,16 +6,14 @@ import com.example.inova_backend.dto.auth.LoginResponseDTO;
 import com.example.inova_backend.dto.auth.RegisterDTO;
 import com.example.inova_backend.model.Usuario;
 import com.example.inova_backend.repository.UsuarioRepository;
+import com.example.inova_backend.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -29,6 +27,9 @@ public class AuthenticationController {
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
@@ -47,5 +48,10 @@ public class AuthenticationController {
         this.usuarioRepository.save(newUser);
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/context")
+    public ResponseEntity<LoginResponseDTO> getContext() {
+        return  ResponseEntity.ok(usuarioService.updateUserContext());
     }
 }
