@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class PessoaDTO {
     private Long id;
     private String nome;
+    private Long usuarioId;
     private String documentoNumero;
     private String tipoPessoa;
     private String telefone;
