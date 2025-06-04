@@ -1,11 +1,13 @@
 package com.example.inova_backend.service;
 
 import com.example.inova_backend.dto.SetorDTO;
+import com.example.inova_backend.model.Setor;
 import com.example.inova_backend.repository.SetorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SetorService {
@@ -20,10 +22,8 @@ public class SetorService {
                 .toList();
     }
 
-    public SetorDTO getSetorById(Long id) {
-        return setorRepository.findById(id)
-                .map(SetorDTO::new)
-                .orElse(null);
+    public Optional<Setor> getSetorById(Long id) {
+        return setorRepository.findById(id);
     }
 
     public SetorDTO createSetor(SetorDTO setorDTO) {

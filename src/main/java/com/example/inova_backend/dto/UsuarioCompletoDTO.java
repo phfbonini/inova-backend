@@ -3,6 +3,7 @@ package com.example.inova_backend.dto;
 import com.example.inova_backend.model.Empresa;
 import com.example.inova_backend.model.Estudante;
 import com.example.inova_backend.model.Universidade;
+import com.example.inova_backend.model.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,5 +35,10 @@ public class UsuarioCompletoDTO {
         this.usuario = usuario;
         this.estudante = new EstudanteDTO(estudante);
     }
+
+    public UsuarioCompletoDTO(Usuario usuario){
+        this.usuario = new UsuarioDTO(usuario);
+    }
+
 }
 

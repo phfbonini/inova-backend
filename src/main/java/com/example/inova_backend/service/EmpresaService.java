@@ -3,7 +3,9 @@ package com.example.inova_backend.service;
 import com.example.inova_backend.dto.UsuarioCompletoDTO;
 import com.example.inova_backend.model.Empresa;
 import com.example.inova_backend.model.Pessoa;
+import com.example.inova_backend.model.Setor;
 import com.example.inova_backend.repository.EmpresaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +15,12 @@ import java.util.Optional;
 public class EmpresaService {
 
     private final EmpresaRepository empresaRepository;
+    private final SetorService setorService;
 
     @Autowired
-    public EmpresaService(EmpresaRepository empresaRepository) {
+    public EmpresaService(EmpresaRepository empresaRepository, SetorService setorService) {
         this.empresaRepository = empresaRepository;
+        this.setorService = setorService;
     }
 
     public Optional<Empresa> findByPessoaId(Long pessoaId) {
@@ -33,7 +37,11 @@ public class EmpresaService {
                 .orElseGet(Empresa::new);
 
         empresa.setNomeFantasia(usuarioCompletoDTO.getEmpresa().getNomeFantasia());
-        empresa.setSetor(usuarioCompletoDTO.getEmpresa().getSetor());
+
+        Setor setor = setorService.getSetorById(usuarioCompletoDTO.getEmpresa().getSetor())
+                .orElseThrow(() -> new EntityNotFoundException("Setor não encontrado com ID: " + usuarioCompletoDTO.getEmpresa().getSetor()));
+
+        empresa.setSetor(setor);
         empresa.setPessoa(pessoa);
         empresa = empresaRepository.save(empresa);
         usuarioCompletoDTO.getEmpresa().setId(empresa.getId());

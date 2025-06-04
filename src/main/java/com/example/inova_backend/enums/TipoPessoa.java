@@ -1,8 +1,22 @@
 package com.example.inova_backend.enums;
 
 public enum TipoPessoa {
-    FISICA,    // Representa o tipo de pessoa que é um Estudante
-    JURIDICA,      // Representa o tipo de pessoa que é uma Empresa
-    MANAGER       // Representa o tipo de pessoa que tem privilégios de Manager ou Root
+    FISICA("FISICA"),
+    JURIDICA("JURIDICA");
+
+    private final String descricao;
+
+    TipoPessoa(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    @Override
+    public String toString() {
+        return descricao;
+    }
 }
 
