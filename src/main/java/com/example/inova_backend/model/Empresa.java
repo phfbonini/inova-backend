@@ -24,7 +24,7 @@ public class Empresa {
 
     @ManyToOne
     @JoinColumn(name = "setor_id")
-    private Long setor;
+    private Setor setor;
 
     private LocalDateTime dataInclusao;
     private LocalDateTime dataAlteracao;

@@ -27,6 +27,6 @@ public class EmpresaDTO {
         this.id = empresa.getId();
         this.pessoa = new PessoaDTO(empresa.getPessoa());
         this.nomeFantasia = empresa.getNomeFantasia();
-        this.setor = empresa.getSetor();
+        this.setor = empresa.getSetor().getId();
     }
 }
